@@ -7,13 +7,12 @@
 
       <div class="main-panel">
         <%- include ../partials/navbar.ejs %>
-        <div class="container"><%- include content.ejs %></div>
+        <div class="container"><%- include table.ejs %></div>
         <%- include ../partials/footer.ejs %>
       </div>
 
       <%- include ../partials/custom.ejs %>
     </div>
-    <%- include ../partials/script.ejs %>
-    <script src="/vendor/js/jam.js"></script>
+    <%- include ../partials/script.ejs %> <%- include ../partials/datatable.ejs %>
   </body>
 </html>

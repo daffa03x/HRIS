@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex align-items-center">
+      <h4 class="card-title">Tambah Pegawai</h4>
+    </div>
+  </div>
+  <div class="card-body">
+    <form action="/employee/store" method="POST">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone Number" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <label for="position">Position</label>
+            <input type="position" class="form-control" name="position" id="position" placeholder="Enter Position" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="department">Department</label>
+            <input type="text" class="form-control" name="department" id="department" placeholder="Enter Department" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <label for="date_of_joining">Date Of Joining</label>
+            <input type="date" class="form-control" name="date_of_joining" id="date_of_joining" placeholder="Enter Date Of Joining" />
+          </div>
+          <div class="col-12 col-md-6">
+            <label for="date_of_birth">Date Of birth</label>
+            <input type="date" class="form-control" name="date_of_birth" id="date_of_birth" placeholder="Enter Date Of birth" />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea class="form-control" name="address" id="address" rows="5"> </textarea>
+      </div>
+      <div class="form-group my-2">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="/employee" class="btn btn-danger">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

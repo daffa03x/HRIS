@@ -1,0 +1,66 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Data Pegawai</h4>
+          <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addRowModal">
+            <i class="fa fa-plus"></i>
+            Tambah
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Nama Lengkap</th>
+                <th>Alamat</th>
+                <th>Telepon</th>
+                <th>Email</th>
+                <th>Posisi</th>
+                <th>Departemen</th>
+                <th>Tanggal Mulai Bekerja</th>
+                <th>Tanggal Lahir</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Nama Lengkap</th>
+                <th>Alamat</th>
+                <th>Telepon</th>
+                <th>Email</th>
+                <th>Posisi</th>
+                <th>Departemen</th>
+                <th>Tanggal Mulai Bekerja</th>
+                <th>Tanggal Lahir</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% employees.forEach(employee => { %>
+              <tr>
+                <td><%= employee.first_name %> <%= employee.last_name %></td>
+                <td><%= employee.address %></td>
+                <td><%= employee.phone %></td>
+                <td><%= employee.email %></td>
+                <td><%= employee.position %></td>
+                <td><%= employee.department %></td>
+                <td><%= new Date(employee.date_of_joining).toLocaleDateString() %></td>
+                <td><%= new Date(employee.date_of_birth).toLocaleDateString() %></td>
+                <td>
+                  <div style="display: flex; gap: 0.5rem">
+                    <a href="/employee/edit/<%= employee.id %>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                    <a href="/employee/delete/<%= employee.id %>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                  </div>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

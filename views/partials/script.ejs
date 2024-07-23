@@ -1,39 +1,39 @@
 <!--   Core JS Files   -->
-<script src="vendor/js/core/jquery-3.7.1.min.js"></script>
-<script src="vendor/js/core/popper.min.js"></script>
-<script src="vendor/js/core/bootstrap.min.js"></script>
+<script src="/vendor/js/core/jquery-3.7.1.min.js"></script>
+<script src="/vendor/js/core/popper.min.js"></script>
+<script src="/vendor/js/core/bootstrap.min.js"></script>
 
 <!-- jQuery Scrollbar -->
-<script src="vendor/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+<script src="/vendor/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
 <!-- Chart JS -->
-<script src="vendor/js/plugin/chart.js/chart.min.js"></script>
+<script src="/vendor/js/plugin/chart.js/chart.min.js"></script>
 
 <!-- jQuery Sparkline -->
-<script src="vendor/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+<script src="/vendor/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
 <!-- Chart Circle -->
-<script src="vendor/js/plugin/chart-circle/circles.min.js"></script>
+<script src="/vendor/js/plugin/chart-circle/circles.min.js"></script>
 
 <!-- Datatables -->
-<script src="vendor/js/plugin/datatables/datatables.min.js"></script>
+<script src="/vendor/js/plugin/datatables/datatables.min.js"></script>
 
 <!-- Bootstrap Notify -->
-<script src="vendor/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+<script src="/vendor/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
 <!-- jQuery Vector Maps -->
-<script src="vendor/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-<script src="vendor/js/plugin/jsvectormap/world.js"></script>
+<script src="/vendor/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+<script src="/vendor/js/plugin/jsvectormap/world.js"></script>
 
 <!-- Sweet Alert -->
-<script src="vendor/js/plugin/sweetalert/sweetalert.min.js"></script>
+<script src="/vendor/js/plugin/sweetalert/sweetalert.min.js"></script>
 
 <!-- Kaiadmin JS -->
-<script src="vendor/js/kaiadmin.min.js"></script>
+<script src="/vendor/js/kaiadmin.min.js"></script>
 
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-<script src="vendor/js/setting-demo.js"></script>
-<script src="vendor/js/demo.js"></script>
+<script src="/vendor/js/setting-demo.js"></script>
+<script src="/vendor/js/demo.js"></script>
 <script>
   $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
     type: "line",
@@ -61,21 +61,4 @@
     lineColor: "#ffa534",
     fillColor: "rgba(255, 165, 52, .14)",
   });
-</script>
-<script>
-  // Function to update time
-  function updateTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    const seconds = now.getSeconds().toString().padStart(2, "0");
-    const timeString = `${hours}:${minutes}:${seconds}`;
-    document.getElementById("current-time").textContent = timeString;
-  }
-
-  // Update time every second
-  setInterval(updateTime, 1000);
-
-  // Initialize the time immediately on page load
-  updateTime();
 </script>
