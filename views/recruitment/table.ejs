@@ -1,0 +1,61 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Data Recruitment</h4>
+          <a href="/recruitment/create" class="btn btn-primary btn-round ms-auto">
+            <i class="fa fa-plus"></i>
+            Tambah
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Lowongan</th>
+                <th>Departemen</th>
+                <th>Tanggal Posting</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Lowongan</th>
+                <th>Departemen</th>
+                <th>Tanggal Posting</th>
+                <th>Status</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% recruitments.forEach(recruitment => { %>
+              <tr>
+                <td><%= recruitment.job_title %></td>
+                <td><%= recruitment.department %></td>
+                <td><%= new Date(recruitment.posted_date).toLocaleDateString() %></td>
+                <td>
+                  <form action="/recruitment/updateStatus/<%= recruitment.job_id %>?_method=PUT" method="POST">
+                    <input type="hidden" name="status" value="<%= recruitment.status %>" />
+                    <button type="submit" class="badge badge-<%= recruitment.status === 'Open' ? 'success' : 'danger' %>"><%= recruitment.status %></button>
+                  </form>
+                </td>
+                <td>
+                  <form action="/recruitment/destroy/<%= recruitment.job_id %>?_method=DELETE" method="POST">
+                    <div style="display: flex; gap: 0.5rem">
+                      <a href="/recruitment/edit/<%= recruitment.job_id %>" class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></a>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
