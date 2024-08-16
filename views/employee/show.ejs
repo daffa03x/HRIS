@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    td {
+      padding: 10px;
+    }
+  </style>
+  <%- include ../partials/head.ejs %>
+  <body>
+    <div class="wrapper">
+      <%- include ../partials/sidebar.ejs %>
+
+      <div class="main-panel">
+        <%- include ../partials/navbar.ejs %>
+        <div class="container">
+          <div class="row m-4">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <div class="d-flex align-items-center">
+                    <h4 class="card-title">Detail Pegawai</h4>
+                    <a href="/employee" class="btn btn-sm btn-danger btn-round ms-auto"> <i class="fas fa-arrow-left"></i></a>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <table>
+                        <tr>
+                          <td>Nama</td>
+                          <td>:</td>
+                          <td><%= employee.first_name %> <%= employee.last_name %></td>
+                        </tr>
+                        <tr>
+                          <td>Alamat</td>
+                          <td>:</td>
+                          <td><%= employee.address %></td>
+                        </tr>
+                        <tr>
+                          <td>Telepon</td>
+                          <td>:</td>
+                          <td><%= employee.phone %></td>
+                        </tr>
+                        <tr>
+                          <td>Tanggal Lahir</td>
+                          <td>:</td>
+                          <td><%= new Date(employee.date_of_birth).toLocaleDateString() %></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-6">
+                      <table>
+                        <tr>
+                          <td>Email</td>
+                          <td>:</td>
+                          <td><%= employee.email %></td>
+                        </tr>
+                        <tr>
+                          <td>Posisi</td>
+                          <td>:</td>
+                          <td><%= employee.position %></td>
+                        </tr>
+                        <tr>
+                          <td>Departemen</td>
+                          <td>:</td>
+                          <td><%= employee.department %></td>
+                        </tr>
+                        <tr>
+                          <td>Tanggal Mulai Bekerja</td>
+                          <td>:</td>
+                          <td><%= new Date(employee.date_of_joining).toLocaleDateString() %></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%- include ../partials/footer.ejs %>
+      </div>
+
+      <%- include ../partials/custom.ejs %>
+    </div>
+    <%- include ../partials/script.ejs %> <%- include ../partials/datatable.ejs %>
+  </body>
+</html>

@@ -47,9 +47,14 @@ const Employee = sequelize.define(
     },
   },
   {
-    tableName: "employees", // Nama tabel di database
+    tableName: "employee", // Nama tabel di database
     timestamps: false, // Set false jika tabel tidak memiliki kolom createdAt dan updatedAt
   }
 );
+
+// Define the association
+Employee.associate = function (models) {
+  Employee.hasMany(models.Attendance, { foreignKey: "employee_id" });
+};
 
 module.exports = Employee;

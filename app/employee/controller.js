@@ -92,6 +92,17 @@ module.exports = {
       res.status(500).send("Internal Server Error");
     }
   },
+  show: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const employee = await Employee.findByPk(id);
+
+      res.render("employee/show", { employee });
+    } catch (error) {
+      console.error("Error fetching employee:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
   destroy: async (req, res) => {
     const { id } = req.params;
     try {
