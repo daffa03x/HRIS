@@ -1,0 +1,68 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Data Rekap Absensi</h4>
+          <a href="/application/create" class="btn btn-success btn-round ms-auto"> Export Excell </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Pegawai</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Tanggal Absen</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Pegawai</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Tanggal Absen</th>
+                <th>Status</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% attendances.forEach(attendance => { %>
+              <tr>
+                <td><%= attendance.Employee.first_name %> <%= attendance.Employee.last_name %></td>
+                <td><%= attendance.check_in %></td>
+                <td><%= attendance.check_out %></td>
+                <td><%= new Date(attendance.date).toLocaleDateString() %></td>
+                <td><%= attendance.status %></td>
+                <td>
+                  <form action="/attendance/destroy/<%= attendance.attendance_id %>?_method=DELETE" method="POST">
+                    <div style="display: flex; gap: 0.5rem">
+                      <a href="/attendance/edit/<%= attendance.attendance_id %>" class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></a>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function submitForm(selectElement) {
+    var form = selectElement.closest("form");
+
+    // Update nilai input hidden dengan nilai yang dipilih
+    var hiddenInput = form.querySelector('input[name="status"]');
+    hiddenInput.value = selectElement.value;
+
+    // Kirim form
+    form.submit();
+  }
+</script>
