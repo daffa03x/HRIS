@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../../db/sequelize"); // Konfigurasi sequelize Anda
+const sequelize = require("../../db/sequelize");
 
-const Employee = sequelize.define(
-  "Employee",
+const Recruitment = sequelize.define(
+  "Recruitment",
   {
     job_id: {
       type: DataTypes.INTEGER,
@@ -27,9 +27,14 @@ const Employee = sequelize.define(
     },
   },
   {
-    tableName: "recruitment", // Nama tabel di database
-    timestamps: false, // Set false jika tabel tidak memiliki kolom createdAt dan updatedAt
+    tableName: "recruitment", // Name of the table in the database
+    timestamps: false, // Set false if the table does not have createdAt and updatedAt columns
   }
 );
 
-module.exports = Employee;
+// Define the association
+Recruitment.associate = function (models) {
+  Recruitment.hasMany(models.Application, { foreignKey: "job_id" });
+};
+
+module.exports = Recruitment;

@@ -11,6 +11,7 @@ const flash = require("connect-flash");
 const dashboardRouter = require("./app/dashboard/router");
 const employeeRouter = require("./app/employee/router");
 const recruitmentRouter = require("./app/recruitment/router");
+const applicationRouter = require("./app/application/router");
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use(methodOverride("_method"));
 app.use("/dashboard", dashboardRouter);
 app.use("/employee", employeeRouter);
 app.use("/recruitment", recruitmentRouter);
+app.use("/application", applicationRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
