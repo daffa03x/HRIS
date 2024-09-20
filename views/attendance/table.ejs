@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="d-flex align-items-center">
           <h4 class="card-title">Data Rekap Absensi</h4>
-          <a href="/application/create" class="btn btn-success btn-round ms-auto"> Export Excell </a>
+          <a href="/attendance/excell" class="btn btn-success btn-round ms-auto"> Export Excell </a>
         </div>
       </div>
       <div class="card-body">
@@ -36,7 +36,18 @@
                 <td><%= attendance.check_in %></td>
                 <td><%= attendance.check_out %></td>
                 <td><%= new Date(attendance.date).toLocaleDateString() %></td>
-                <td><%= attendance.status %></td>
+                <td>
+                  <form action="/attendance/updateStatus/<%= attendance.attendance_id %>?_method=PUT" method="POST" class="statusForm">
+                    <!-- Dropdown untuk memilih status -->
+                    <select class="form-select" onchange="submitForm(this)">
+                      <% statuses.forEach(status => { %>
+                        <option value="<%= status %>" <%= attendance.status === status ? 'selected' : '' %>><%= status %></option>
+                      <% }) %>
+                    </select>
+                    <!-- Input hidden untuk menyimpan status -->
+                    <input type="hidden" name="status" value="<%= attendance.status %>" />
+                  </form> 
+                </td>
                 <td>
                   <form action="/attendance/destroy/<%= attendance.attendance_id %>?_method=DELETE" method="POST">
                     <div style="display: flex; gap: 0.5rem">
@@ -55,14 +66,14 @@
   </div>
 </div>
 <script>
-  function submitForm(selectElement) {
-    var form = selectElement.closest("form");
-
-    // Update nilai input hidden dengan nilai yang dipilih
-    var hiddenInput = form.querySelector('input[name="status"]');
-    hiddenInput.value = selectElement.value;
-
-    // Kirim form
-    form.submit();
-  }
+function submitForm(selectElement) {
+  var form = selectElement.closest('form');
+  
+  // Update nilai input hidden dengan nilai yang dipilih
+  var hiddenInput = form.querySelector('input[name="status"]');
+  hiddenInput.value = selectElement.value;
+  
+  // Kirim form
+  form.submit();
+}
 </script>

@@ -3,10 +3,10 @@ const db = require("../../db/mysql2");
 module.exports = {
   index: async (req, res) => {
     try {
-      const queryEmployee = "SELECT COUNT(*) AS count FROM employees";
+      const queryEmployee = "SELECT COUNT(*) AS count FROM employee";
       const queryEmployeeMonth = `
       SELECT COUNT(*) AS count 
-      FROM employees 
+      FROM employee 
       WHERE MONTH(date_of_joining) = MONTH(CURDATE()) 
       AND YEAR(date_of_joining) = YEAR(CURDATE())
     `;
