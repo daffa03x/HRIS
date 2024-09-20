@@ -5,6 +5,7 @@ module.exports = {
     try {
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
+      const statuses = ["Present", "Sakit", "Izin", "Cuti"];
 
       const alert = { message: alertMessage, status: alertStatus };
       const attendances = await Attendance.findAll({
@@ -15,7 +16,7 @@ module.exports = {
           },
         ],
       });
-      res.render("attendance/index", { attendances, alert });
+      res.render("attendance/index", { attendances, statuses, alert });
     } catch (error) {
       console.error("Error fetching attendence:", error);
       res.status(500).send("Internal Server Error");
@@ -24,10 +25,10 @@ module.exports = {
   create: async (req, res) => {
     const alertMessage = req.flash("alertMessage");
     const alertStatus = req.flash("alertStatus");
-    const recruitments = await Recruitment.findAll();
+    const employees = await Employee.findAll();
 
     const alert = { message: alertMessage, status: alertStatus };
-    res.render("application/create", { recruitments, alert });
+    res.render("employee/create", { employees, alert });
   },
   store: async (req, res) => {
     const { job_id, candidate_name } = req.body;
@@ -58,13 +59,13 @@ module.exports = {
   edit: async (req, res) => {
     const { id } = req.params;
     try {
-      const application = await Application.findByPk(id);
-      const recruitments = await Recruitment.findAll();
+      const attendances = await Attendance.findByPk(id);
+      const employees = await Employee.findAll();
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
 
       const alert = { message: alertMessage, status: alertStatus };
-      res.render("application/edit", { application, recruitments, alert });
+      res.render("attendance/edit", { attendances, employees, alert });
     } catch (error) {
       console.error("Error fetching application:", error);
       res.status(500).send("Internal Server Error");
@@ -72,21 +73,23 @@ module.exports = {
   },
   update: async (req, res) => {
     const { id } = req.params;
-    const { job_id, candidate_name } = req.body;
+    const { employee_id, date, check_in, check_out } = req.body;
     try {
-      await Application.update(
+      await Attendance.update(
         {
-          job_id,
-          candidate_name,
+          employee_id,
+          date,
+          check_in,
+          check_out,
         },
-        { where: { application_id: id } }
+        { where: { attendance_id: id } }
       );
-      req.flash("alertMessage", "Berhasil ubah application");
+      req.flash("alertMessage", "Berhasil ubah Attendance");
       req.flash("alertStatus", "success");
 
-      res.redirect("/application");
+      res.redirect("/attendance");
     } catch (error) {
-      console.error("Error updating application:", error);
+      console.error("Error updating Attendance:", error);
       res.status(500).send("Internal Server Error");
     }
   },
@@ -104,12 +107,12 @@ module.exports = {
       }
 
       // Update status pada model Application
-      await Application.update({ status }, { where: { application_id: id } });
+      await Attendance.update({ status }, { where: { attendance_id: id } });
 
       req.flash("alertMessage", "Berhasil ubah status");
       req.flash("alertStatus", "success");
 
-      res.redirect("/application");
+      res.redirect("/attendance");
     } catch (error) {
       console.error("Error updating application status:", error);
       res.status(500).send("Internal Server Error");
@@ -119,13 +122,13 @@ module.exports = {
   destroy: async (req, res) => {
     const { id } = req.params;
     try {
-      await Application.destroy({ where: { application_id: id } });
-      req.flash("alertMessage", "Berhasil hapus application");
+      await Attendance.destroy({ where: { attendance_id: id } });
+      req.flash("alertMessage", "Berhasil hapus absen");
       req.flash("alertStatus", "success");
 
-      res.redirect("/application");
+      res.redirect("/attendance");
     } catch (error) {
-      console.error("Error deleting application:", error);
+      console.error("Error deleting absen:", error);
       res.status(500).send("Internal Server Error");
     }
   },
