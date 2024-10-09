@@ -1,0 +1,31 @@
+<div class="card m-4">
+  <div class="card-header">
+    <div class="d-flex align-items-center">
+      <h4 class="card-title">Absensi Hari Ini</h4>
+    </div>
+  </div>
+  <div class="card-body">
+    <form action="/attendance-day/store" method="POST">
+      <div class="form-group">
+        <label for="employee_id">Nama Pegawai</label>
+        <select name="employee_id" class="form-select">
+          <% employees.forEach(employee => { %>
+          <option value="<%= employee.employee_id %>"><%= employee.first_name %> - <%= employee.last_name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="check_in">Jam Masuk</label>
+        <input type="time" class="form-control" name="check_in" id="check_in" placeholder="Jam Masuk" />
+      </div>
+      <div class="form-group">
+        <label for="check_out">Jam Keluar</label>
+        <input type="time" class="form-control" name="check_out" id="check_out" placeholder="Jam Keluar" />
+      </div>
+      <div class="form-group my-2">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="/attendance-day" class="btn btn-danger">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
