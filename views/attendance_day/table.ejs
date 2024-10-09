@@ -1,0 +1,79 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Data Absensi Harian</h4>
+          <a href="/attendance-day/create" class="btn btn-success btn-round ms-auto"> Input Absen </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Pegawai</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Tanggal Absen</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Pegawai</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Tanggal Absen</th>
+                <th>Status</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% attendances.forEach(attendance => { %>
+              <tr>
+                <td><%= attendance.Employee.first_name %> <%= attendance.Employee.last_name %></td>
+                <td><%= attendance.check_in %></td>
+                <td><%= attendance.check_out %></td>
+                <td><%= new Date(attendance.date).toLocaleDateString() %></td>
+                <td>
+                  <form action="/attendance-day/updateStatus/<%= attendance.attendance_id %>?_method=PUT" method="POST" class="statusForm">
+                    <!-- Dropdown untuk memilih status -->
+                    <select class="form-select" onchange="submitForm(this)">
+                      <% statuses.forEach(status => { %>
+                        <option value="<%= status %>" <%= attendance.status === status ? 'selected' : '' %>><%= status %></option>
+                      <% }) %>
+                    </select>
+                    <!-- Input hidden untuk menyimpan status -->
+                    <input type="hidden" name="status" value="<%= attendance.status %>" />
+                  </form> 
+                </td>
+                <td>
+                  <form action="/attendance-day/destroy/<%= attendance.attendance_id %>?_method=DELETE" method="POST">
+                    <div style="display: flex; gap: 0.5rem">
+                      <a href="/attendance-day/edit/<%= attendance.attendance_id %>" class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></a>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function submitForm(selectElement) {
+  var form = selectElement.closest('form');
+  
+  // Update nilai input hidden dengan nilai yang dipilih
+  var hiddenInput = form.querySelector('input[name="status"]');
+  hiddenInput.value = selectElement.value;
+  
+  // Kirim form
+  form.submit();
+}
+</script>

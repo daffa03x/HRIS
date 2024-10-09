@@ -1,4 +1,5 @@
 const { Attendance, Employee } = require("./relation");
+const { Op } = require("sequelize");
 
 module.exports = {
   index: async (req, res) => {
@@ -8,17 +9,64 @@ module.exports = {
       const statuses = ["Present", "Sakit", "Izin", "Cuti"];
 
       const alert = { message: alertMessage, status: alertStatus };
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0); // Mengatur waktu menjadi 00:00:00 hari ini
+
+      const todayEnd = new Date();
+      todayEnd.setHours(23, 59, 59, 999); // Mengatur waktu menjadi 23:59:59 hari ini
+
       const attendances = await Attendance.findAll({
+        where: {
+          date: {
+            [Op.between]: [todayStart, todayEnd], // Mengambil data dalam rentang hari ini
+          },
+        },
         include: [
           {
             model: Employee,
-            attributes: ["first_name", "last_name"], // Atribut yang ingin Anda ambil dari Employee
+            attributes: ["first_name", "last_name"],
           },
         ],
       });
-      res.render("attendance/index", { attendances, statuses, alert });
+      console.log("data : " + attendances);
+      res.render("attendance_day/index", { attendances, statuses, alert });
     } catch (error) {
       console.error("Error fetching attendence:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  },
+  create: async (req, res) => {
+    const alertMessage = req.flash("alertMessage");
+    const alertStatus = req.flash("alertStatus");
+    const employees = await Employee.findAll();
+
+    const alert = { message: alertMessage, status: alertStatus };
+    res.render("attendance_day/create", { employees, alert });
+  },
+  store: async (req, res) => {
+    const { employee_id, check_in, check_out } = req.body;
+    const date = new Date();
+    const status = "Present";
+    if (!employee_id) {
+      req.flash("alertMessage", "Lengkapi semua kolom");
+      req.flash("alertStatus", "danger");
+      return res.redirect("/attendance-day/create");
+    }
+
+    try {
+      await Attendance.create({
+        employee_id,
+        date,
+        check_in,
+        check_out,
+        status,
+      });
+      req.flash("alertMessage", "Berhasil absen");
+      req.flash("alertStatus", "success");
+
+      res.redirect("/attendace-day");
+    } catch (error) {
+      console.error("Error creating attendace day:", error);
       res.status(500).send("Internal Server Error");
     }
   },
@@ -31,7 +79,7 @@ module.exports = {
       const alertStatus = req.flash("alertStatus");
 
       const alert = { message: alertMessage, status: alertStatus };
-      res.render("attendance/edit", { attendances, employees, alert });
+      res.render("attendance_day/edit", { attendances, employees, alert });
     } catch (error) {
       console.error("Error fetching application:", error);
       res.status(500).send("Internal Server Error");
@@ -39,12 +87,11 @@ module.exports = {
   },
   update: async (req, res) => {
     const { id } = req.params;
-    const { employee_id, date, check_in, check_out } = req.body;
+    const { employee_id, check_in, check_out } = req.body;
     try {
       await Attendance.update(
         {
           employee_id,
-          date,
           check_in,
           check_out,
         },
@@ -78,9 +125,9 @@ module.exports = {
       req.flash("alertMessage", "Berhasil ubah status");
       req.flash("alertStatus", "success");
 
-      res.redirect("/attendance");
+      res.redirect("/attendance-day");
     } catch (error) {
-      console.error("Error updating application status:", error);
+      console.error("Error updating attendance day status:", error);
       res.status(500).send("Internal Server Error");
     }
   },
@@ -92,7 +139,7 @@ module.exports = {
       req.flash("alertMessage", "Berhasil hapus absen");
       req.flash("alertStatus", "success");
 
-      res.redirect("/attendance");
+      res.redirect("/attendance-day");
     } catch (error) {
       console.error("Error deleting absen:", error);
       res.status(500).send("Internal Server Error");
