@@ -1,10 +1,12 @@
 const sequelize = require("../../db/sequelize");
-const Attendance = require("./model");
 const Employee = require("../employee/model");
+const Attendance = require("./model");
+const Payroll = require("../payroll/model");
 
 const models = {
-  Attendance,
   Employee,
+  Attendance,
+  Payroll,
 };
 
 Object.keys(models).forEach((modelName) => {
