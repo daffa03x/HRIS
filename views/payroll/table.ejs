@@ -1,0 +1,59 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Data Payroll</h4>
+          <a href="/payroll/create" class="btn btn-primary btn-round ms-auto">
+            <i class="fa fa-plus"></i>
+            Tambah
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Nama Karyawan</th>
+                <th>Gaji</th>
+                <th>Bonus</th>
+                <th>Pengurangan</th>
+                <th>Tanggal Gajian</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Nama Karyawan</th>
+                <th>Gaji</th>
+                <th>Bonus</th>
+                <th>Pengurangan</th>
+                <th>Tanggal Gajian</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              <% payrolls.forEach(payroll => { %>
+              <tr>
+                <td><%= payroll.Employee.first_name %> <%= payroll.Employee.last_name %></td>
+                <td>$<%= payroll.salary %></td>
+                <td>$<%= payroll.bonus %></td>
+                <td>$<%= payroll.deductions %></td>
+                <td><%= new Date(payroll.pay_date).toLocaleDateString() %></td>
+                <td>
+                  <form action="/payroll/destroy/<%= payroll.payroll_id %>?_method=DELETE" method="POST">
+                    <div style="display: flex; gap: 0.5rem">
+                      <a href="/payroll/edit/<%= payroll.payroll_id %>" class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></a>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

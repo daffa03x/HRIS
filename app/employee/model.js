@@ -52,9 +52,10 @@ const Employee = sequelize.define(
   }
 );
 
-// Define the association
+// Gabungkan semua asosiasi dalam satu deklarasi
 Employee.associate = function (models) {
   Employee.hasMany(models.Attendance, { foreignKey: "employee_id" });
+  Employee.hasMany(models.Payroll, { foreignKey: "employee_id" });
 };
 
 module.exports = Employee;
