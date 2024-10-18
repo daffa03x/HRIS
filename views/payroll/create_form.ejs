@@ -1,22 +1,35 @@
 <div class="card m-4">
   <div class="card-header">
     <div class="d-flex align-items-center">
-      <h4 class="card-title">Tambah Recruitment</h4>
+      <h4 class="card-title">Tambah Penggajian</h4>
     </div>
   </div>
   <div class="card-body">
-    <form action="/recruitment/store" method="POST">
+    <form action="/payroll/store" method="POST">
       <div class="form-group">
-        <label for="job_title">Lowongan</label>
-        <input type="text" class="form-control" name="job_title" id="job_title" placeholder="Lowongan" />
+        <label for="employee_id">Pegawai</label>
+        <select name="employee_id" class="form-select">
+          <option value="" selected>-- Pilih Pegawai --</option>
+          <% employees.forEach(employee => { %>
+          <option value="<%= employee.employee_id %>"><%= employee.first_name %> <%= employee.last_name %></option>
+          <% }) %>
+        </select>
       </div>
       <div class="form-group">
-        <label for="department">Departemen</label>
-        <input type="text" class="form-control" name="department" id="department" placeholder="Departemen" />
+        <label for="salary">Gaji Pokok</label>
+        <input type="number" class="form-control" name="salary" id="salary" placeholder="Gaji Pokok" />
+      </div>
+      <div class="form-group">
+        <label for="bonus">Bonus</label>
+        <input type="number" class="form-control" name="bonus" id="bonus" placeholder="Bonus" />
+      </div>
+      <div class="form-group">
+        <label for="deductions">Potongan</label>
+        <input type="number" class="form-control" name="deductions" id="deductions" placeholder="Potongan" />
       </div>
       <div class="form-group my-2">
         <button type="submit" class="btn btn-success">Submit</button>
-        <a href="/recruitment" class="btn btn-danger">Cancel</a>
+        <a href="/payroll" class="btn btn-danger">Cancel</a>
       </div>
     </form>
   </div>
