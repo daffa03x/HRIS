@@ -1,5 +1,5 @@
 const sequelize = require("../../db/sequelize");
-const Application = require("./model");
+const Application = require("../application/model");
 const Recruitment = require("../recruitment/model");
 
 const models = {

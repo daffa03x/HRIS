@@ -56,6 +56,7 @@ const Employee = sequelize.define(
 Employee.associate = function (models) {
   Employee.hasMany(models.Attendance, { foreignKey: "employee_id" });
   Employee.hasMany(models.Payroll, { foreignKey: "employee_id" });
+  Employee.hasMany(models.Benefit, { foreignKey: "employee_id" });
 };
 
 module.exports = Employee;

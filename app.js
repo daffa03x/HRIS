@@ -15,6 +15,7 @@ const applicationRouter = require("./app/application/router");
 const attendanceRouter = require("./app/attendance/router");
 const attendanceDayRouter = require("./app/attendance_day/router");
 const payrollRouter = require("./app/payroll/router");
+const benefitRouter = require("./app/benefit/router");
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use("/application", applicationRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/attendance-day", attendanceDayRouter);
 app.use("/payroll", payrollRouter);
+app.use("/benefit", benefitRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

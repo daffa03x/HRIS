@@ -1,4 +1,4 @@
-const { Application, Recruitment } = require("./relation");
+const { Application, Recruitment } = require("../relation/RelationAR");
 
 module.exports = {
   index: async (req, res) => {

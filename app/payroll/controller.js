@@ -1,4 +1,4 @@
-const { Payroll, Employee } = require("./relation");
+const { Payroll, Employee } = require("../relation/RelationABCEPPT");
 
 module.exports = {
   index: async (req, res) => {
