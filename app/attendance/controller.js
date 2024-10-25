@@ -1,4 +1,4 @@
-const { Attendance, Employee } = require("./relation");
+const { Attendance, Employee } = require("../relation/RelationABCEPPT");
 
 module.exports = {
   index: async (req, res) => {

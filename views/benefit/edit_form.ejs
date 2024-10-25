@@ -1,0 +1,35 @@
+<div class="card m-4">
+  <div class="card-header">
+    <div class="d-flex align-items-center">
+      <h4 class="card-title">Ubah Benefit</h4>
+    </div>
+  </div>
+  <div class="card-body">
+    <form action="/benefit/update/<%= benefit.benefit_id %>?_method=PUT" method="POST">
+      <div class="form-group">
+        <label for="employee_id">Pegawai</label>
+        <select name="employee_id" class="form-select">
+          <% employees.forEach(employee => { %>
+          <option value="<%= employee.employee_id %>" <%= benefit.employee_id === employee.employee_id ? 'selected' : '' %>><%= employee.first_name %> <%= employee.last_name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="benefit_type">Tipe</label>
+        <input type="text" class="form-control" name="benefit_type" id="benefit_type" placeholder="Tipe" value="<%= benefit.benefit_type %>"/>
+      </div>
+      <div class="form-group">
+        <label for="start_date">Tanggal Mulai</label>
+        <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Tanggal Mulai" value="<%= benefit.start_date instanceof Date ? benefit.start_date.toISOString().split('T')[0] : '' %>"/>
+      </div>
+      <div class="form-group">
+        <label for="end_date">Tanggal Akhir</label>
+        <input type="date" class="form-control" name="end_date" id="end_date" placeholder="Tanggal Akhir" value="<%= benefit.end_date instanceof Date ? benefit.end_date.toISOString().split('T')[0] : '' %>"/>
+      </div>
+      <div class="form-group my-2">
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="/benefit" class="btn btn-danger">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="row m-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <h4 class="card-title">Data Benefit</h4>
+          <a href="/benefit/create" class="btn btn-primary btn-round ms-auto">
+            <i class="fa fa-plus"></i>
+            Tambah
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="multi-filter-select" class="display table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Nama Karyawan</th>
+                <th>Tipe</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal akhir</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Nama Karyawan</th>
+                <th>Tipe</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal akhir</th>
+                <!-- <th>Status</th> -->
+              </tr>
+            </tfoot>
+            <tbody>
+              <% benefits.forEach(benefit => { %>
+              <tr>
+                <td><%= benefit.Employee.first_name %> <%= benefit.Employee.last_name %></td>
+                <td><%= benefit.benefit_type %></td>
+                <td><%= new Date(benefit.start_date).toLocaleDateString() %></td>
+                <td><%= new Date(benefit.end_date).toLocaleDateString() %></td>
+                <td>
+                  <form action="/benefit/updateStatus/<%= benefit.benefit_id %>?_method=PUT" method="POST">
+                    <input type="hidden" name="status" value="<%= benefit.status %>" />
+                    <button type="submit" class="badge badge-<%= benefit.status === 'Active' ? 'success' : 'danger' %>"><%= benefit.status %></button>
+                  </form>
+                </td>
+                <td>
+                  <form action="/benefit/destroy/<%= benefit.benefit_id %>?_method=DELETE" method="POST">
+                    <div style="display: flex; gap: 0.5rem">
+                      <a href="/benefit/edit/<%= benefit.benefit_id %>" class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></a>
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

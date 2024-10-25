@@ -1,4 +1,4 @@
-const { Attendance, Employee } = require("../attendance/relation");
+const { Attendance, Employee } = require("../relation/RelationABCEPPT");
 const { Op } = require("sequelize");
 
 module.exports = {
