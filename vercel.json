@@ -1,8 +1,47 @@
 {
   "version": 2,
-  "builds": [{ "src": "app.js", "use": "@vercel/node" }],
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "app.js" },
-    { "src": "/(.*)", "dest": "app.js" }
+    {
+      "src": "/dashboard(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/employee(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/recruitment(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/application(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/attendance(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/attendance-day(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/payroll(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/benefit(.*)",
+      "dest": "app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app.js"
+    }
   ]
 }
